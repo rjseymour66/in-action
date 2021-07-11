@@ -18,11 +18,11 @@ type Pool struct {
 }
 
 // ErrPoolClosed is returned when an Acquire returns on a closed pool.
-var ErroPoolClosed = errors.New("Pool has been closed.")
+var ErrPoolClosed = errors.New("Pool has been closed.")
 
 // New creates a pool that manages resources. A pool requires a 
 // function that can allocate a new resource and the size of the pool
-func New(fn func() (io.Coser, error), size uint) (*Pool, error) {
+func New(fn func() (io.Closer, error), size uint) (*Pool, error) {
 	if size <= 0 {
 		return nil, errors.New("Size value too small.")
 	}
