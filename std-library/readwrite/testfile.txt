@@ -1,0 +1,7 @@
+This is a test file to see if I can write a reader and a writer in go.
+I think I should be able to do it, but some of this stuff is more difficult
+than I remember it being. I am glad that I am finally learning a language 
+that seems to allow me to do cool stuff with it, rather than just read text-
+books and do exercises.
+
+However, I still have some exercises to do to learn Go...
