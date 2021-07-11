@@ -3,7 +3,7 @@ package work
 import "sync"
 
 // Worker must be implemented by types that want to use the work pool
-type Worker interface () {
+type Worker interface {
 	Task()
 }
 
@@ -17,13 +17,13 @@ type Pool struct {
 // New creates a new work pool
 func New(maxGoroutines int) *Pool {
 	p := Pool {
-		tasks: make(chan Worker),
+		work: make(chan Worker),
 	}
 
 	p.wg.Add(maxGoroutines)
 	for i := 0; i < maxGoroutines; i++ {
 		go func() {
-			for w :+ range p.work {
+			for w := range p.work {
 				w.Task()
 			}
 			p.wg.Done()
@@ -40,6 +40,6 @@ func (p *Pool) Run(w Worker) {
 
 // Shutdown waits for all the goroutines to shutdown.
 func (p *Pool) Shutdown() {
-	close(p.tasks)
+	close(p.work)
 	p.wg.Wait()
 }

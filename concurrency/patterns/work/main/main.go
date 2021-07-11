@@ -8,13 +8,18 @@ import (
 	"github.com/rjseymour66/in-action/concurrency/patterns/work"
 )
 
+// namePrinter provides special support for printing names
+type namePrinter struct {
+	name	string
+}
+
 // names provides a set of names to display
 var names = []string{
 	"steve",
 	"bob",
 	"mary",
 	"therese",
-	"jason"
+	"jason",
 }
 
 // namePrinter implements the Worker interface
@@ -35,7 +40,7 @@ func main() {
 		for _, name := range names {
 			// create a namePrinter and provide the specific name
 			np := namePrinter {
-				name: name
+				name: name,
 			}
 
 			go func() {
@@ -47,7 +52,7 @@ func main() {
 		}
 	}
 
-	wq.Wait()
+	wg.Wait()
 
 	// Shutdown the work pool and wait for all existing work
 	// to be completed
