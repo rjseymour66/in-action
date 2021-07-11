@@ -2,9 +2,10 @@ package main
 
 import (
 	"log"
+	"os"
 	"time"
 
-	"github.com/rjseymour66/in-action/patterns/runner"
+	"github.com/rjseymour66/in-action/concurrency/patterns/runner"
 )
 
 
@@ -19,7 +20,7 @@ func main() {
 	r := runner.New(timeout)
 
 	// Add the tasks to be run
-	r.Add(createTask(). createTask(), createTask())
+	r.Add(createTask(), createTask(), createTask())
 
 	// Run the tasks and handle the result
 	if err := r.Start(); err != nil {
@@ -33,4 +34,11 @@ func main() {
 		}
 	}
 	log.Println("Process ended.")
+}
+
+func createTask() func(int) {
+	return func(id int) {
+		log.Printf("Processor - Task #%d.", id)
+		time.Sleep(time.Duration(id) * time.Second)
+	}
 }

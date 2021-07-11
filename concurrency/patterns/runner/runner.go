@@ -6,6 +6,7 @@
 	- The program cannot complete its work in time and kills itself
 	- An os interrupt event is received and the program tries to shut down cleanly
 */
+package runner
 
 import (
 	"errors"
@@ -56,7 +57,7 @@ func (r *Runner) Add(tasks ...func(int)) {
 // Start runs all tasks and monitors channel events.
 func (r *Runner) Start() error {
 	// We want to receive all interrupt based signals
-	signal.Notify(r.interrup, os.Interrupt)
+	signal.Notify(r.interrupt, os.Interrupt)
 
 	// Run each task on its own goroutine
 	go func() {
